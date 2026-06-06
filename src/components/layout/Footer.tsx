@@ -46,7 +46,7 @@ export default function Footer() {
               variant="h6"
               sx={{ fontFamily: '"Bricolage Grotesque", "Plus Jakarta Sans", sans-serif', fontWeight: 800 }}
             >
-              ALEX <Box component="span" sx={{ color: 'primary.main' }}>DEV</Box>
+              Bilal <Box component="span" sx={{ color: 'primary.main' }}>DEV</Box>
             </Typography>
           </Box>
 
@@ -108,7 +108,7 @@ export default function Footer() {
           }}
         >
           <Typography variant="body2" color="text.secondary">
-            © 2024 Alex Developer. All rights reserved.
+            © 2024 Bilal Developer. All rights reserved.
           </Typography>
 
           <IconButton

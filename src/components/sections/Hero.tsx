@@ -153,7 +153,7 @@ export default function Hero() {
                   display: 'inline-block',
                 }}
               >
-                Alex
+                Bilal
               </Box>
             </Typography>
 
@@ -419,7 +419,7 @@ export default function Hero() {
               </Box>
               <Box>
                 <Typography sx={{ fontSize: '1.1rem', fontWeight: 800, lineHeight: 1, color: 'primary.main' }}>
-                  3+ Years
+                  2+ Years
                 </Typography>
                 <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                   Experience
@@ -457,7 +457,7 @@ export default function Hero() {
               </Box>
               <Box>
                 <Typography sx={{ fontSize: '1.1rem', fontWeight: 800, lineHeight: 1, color: 'secondary.main' }}>
-                  50+ Projects
+                  20+ Projects
                 </Typography>
                 <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                   Completed

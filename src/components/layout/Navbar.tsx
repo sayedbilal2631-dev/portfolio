@@ -56,7 +56,7 @@ export default function Navbar() {
               variant="h6"
               sx={{ fontFamily: '"Bricolage Grotesque", "Plus Jakarta Sans", sans-serif', fontWeight: 800, letterSpacing: '-0.02em' }}
             >
-              ALEX{' '}
+              Bilal{' '}
               <Box component="span" sx={{ color: 'primary.main' }}>DEV</Box>
             </Typography>
           </Box>
