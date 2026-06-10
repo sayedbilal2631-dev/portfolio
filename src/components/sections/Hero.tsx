@@ -5,14 +5,13 @@ import {
   Box, Container, Typography, Button, IconButton, useTheme, Avatar,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import DownloadIcon from '@mui/icons-material/Download';
 
-const ROLES = ['Web Developer', 'UI/UX Designer', 'React Expert', 'Freelancer'];
+const ROLES = ['Web Developer', 'React Expert', 'Freelancer'];
 
 const SOCIALS = [
   { icon: <GitHubIcon fontSize="small" />, label: 'GitHub' },

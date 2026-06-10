@@ -11,6 +11,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useInView } from '@/hooks/useInView';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const { ref, inView } = useInView();
@@ -19,11 +20,11 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-    setForm({ name: '', email: '', message: '' });
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setSent(true);
+  //   setForm({ name: '', email: '', message: '' });
+  // };
 
   const inputSx = {
     '& .MuiOutlinedInput-root': {
@@ -32,6 +33,33 @@ export default function Contact() {
       '&:hover fieldset': { borderColor: 'primary.main' },
       '&.Mui-focused fieldset': { borderColor: 'primary.main' },
     },
+  };
+
+  const handleSubmitEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      await emailjs.send(
+        'service_173tgga',
+        'template_54onj5v',
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: [  form.message, `Email: ${form.email}`].join('\n'),
+        },
+        'X1OO5oqKxYQn83y5G'
+      );
+
+      setSent(true);
+      setForm({
+        name: '',
+        email: '',
+        message: '',
+      });
+      
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -163,8 +191,8 @@ export default function Contact() {
             <Box>
               <Typography variant="h5" fontWeight={700} sx={{ mb: 3 }}>Contact Info</Typography>
               {[
-                { icon: <EmailIcon />, label: 'Email', value: 'alex@developer.com' },
-                { icon: <LocationOnIcon />, label: 'Location', value: 'Based in India' },
+                { icon: <EmailIcon />, label: 'Email', value: 'sayedbilal2631@gmail.com' },
+                { icon: <LocationOnIcon />, label: 'Location', value: 'Based in Pakistan' },
               ].map((item) => (
                 <Box
                   key={item.label}
@@ -204,7 +232,7 @@ export default function Contact() {
             </Box>
 
             {/* Form */}
-            <Box component="form" onSubmit={handleSubmit}>
+            <Box component="form" onSubmit={handleSubmitEmail}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField

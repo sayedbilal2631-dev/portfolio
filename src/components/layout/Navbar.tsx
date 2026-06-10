@@ -15,7 +15,6 @@ import CodeIcon from '@mui/icons-material/Code';
 import { useThemeMode } from '@/theme/ThemeProvider';
 import { useActiveSection } from '@/hooks/useInView';
 import { NAV_LINKS } from '@/lib/data';
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -36,6 +35,30 @@ export default function Navbar() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleDownloadCV = async () => {
+    const filePath = '/Resume.pdf';
+
+    try {
+      const res = await fetch(filePath, { method: 'HEAD' });
+      if (!res.ok) {
+        console.error('CV file not found on server');
+        alert('CV is not available at the moment. Please try again later.');
+        return;
+      }
+    } catch {
+      alert('Could not reach the server. Check your connection.');
+      return;
+    }
+
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.setAttribute('download', 'Bilal_CV.pdf');
+    link.setAttribute('target', '_blank');
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <>
       <AppBar
@@ -123,6 +146,7 @@ export default function Navbar() {
                 startIcon={<DownloadIcon />}
                 size="small"
                 sx={{ ml: 1 }}
+                onClick={handleDownloadCV}
               >
                 Download CV
               </Button>
@@ -172,7 +196,7 @@ export default function Navbar() {
             </ListItem>
           ))}
           <ListItem disablePadding sx={{ mt: 2 }}>
-            <Button variant="contained" startIcon={<DownloadIcon />} fullWidth>
+            <Button variant="contained" startIcon={<DownloadIcon />} fullWidth onClick={handleDownloadCV}>
               Download CV
             </Button>
           </ListItem>

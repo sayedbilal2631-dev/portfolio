@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from '@/theme/ThemeProvider';
 
 export const metadata: Metadata = {
-  title: 'Alex Developer | Portfolio',
+  title: 'Bilal Developer | Portfolio',
   description: 'Web Developer Portfolio — Building responsive, fast and modern websites with clean code and great user experience.',
 };
 

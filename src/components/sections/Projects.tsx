@@ -1,11 +1,19 @@
 'use client';
 
-import React from 'react';
 import {
-  Box, Container, Typography, Chip, Card, CardContent, CardActions, Button, useTheme,
+  Box,
+  Container,
+  Typography,
+  Chip,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  useTheme,
 } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import React, { useState } from 'react';
 import { useInView } from '@/hooks/useInView';
 import { PROJECTS } from '@/lib/data';
 
@@ -15,16 +23,23 @@ const PROJECT_GRADIENTS = [
   'linear-gradient(135deg, #1a0a00 0%, #4d2200 50%, #cc5500 100%)',
 ];
 
-const PROJECT_LABELS = [
-  { main: 'Interior Design', sub: 'Website' },
-  { main: 'Organize work,', sub: 'smarter, not harder' },
-  { main: 'Where good food', sub: 'meets good mood' },
-];
+const CATEGORIES = ['All', 'Frontend', 'Backend', 'Full Stack', 'Automation'];
+
+
 
 export default function Projects() {
   const { ref, inView } = useInView();
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+
+  const [projects] = useState(PROJECTS);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [visibleProjects, setVisibleProjects] = useState(6);
+
+  const filteredProjects =
+    selectedCategory === 'All'
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory);
 
   return (
     <Box
@@ -38,14 +53,15 @@ export default function Projects() {
       }}
     >
       <Container maxWidth="lg">
+
         {/* Header */}
         <Box
           sx={{
             textAlign: 'center',
-            mb: 8,
+            mb: 6,
             opacity: inView ? 1 : 0,
             transform: inView ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.7s ease',
+            transition: 'all .7s ease',
           }}
         >
           <Chip
@@ -55,16 +71,16 @@ export default function Projects() {
               background: 'rgba(108,99,255,0.15)',
               color: 'primary.main',
               fontWeight: 700,
-              letterSpacing: '0.08em',
               mb: 2,
             }}
           />
-          <Typography variant="h3" fontWeight={800} sx={{ fontSize: { xs: '2rem', md: '2.6rem' } }}>
+
+          <Typography variant="h3" fontWeight={800}>
             Some of my{' '}
             <Box
               component="span"
               sx={{
-                background: 'linear-gradient(135deg, #6C63FF, #E040FB)',
+                background: 'linear-gradient(135deg,#6C63FF,#E040FB)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -73,130 +89,135 @@ export default function Projects() {
             </Box>{' '}
             work
           </Typography>
+
+          <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 650, mx: 'auto' }}>
+            A collection of full-stack applications, automation tools, dashboards and web experiences.
+          </Typography>
         </Box>
 
-        {/* Project Grid */}
+        {/* Filters */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, flexWrap: 'wrap', mb: 5 }}>
+          {CATEGORIES.map((category) => (
+            <Chip
+              key={category}
+              label={category}
+              clickable
+              color={selectedCategory === category ? 'primary' : 'default'}
+              onClick={() => {
+                setSelectedCategory(category);
+                setVisibleProjects(6);
+              }}
+            />
+          ))}
+        </Box>
+
+        {/* Projects Grid */}
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2,1fr)', md: 'repeat(3,1fr)' },
             gap: 3,
           }}
         >
-          {PROJECTS.map((project, i) => (
+          {filteredProjects.slice(0, visibleProjects).map((project, i) => (
             <Card
-              key={project.title}
+              key={project.id}
               sx={{
+                overflow: 'hidden',
+                transition: 'all .35s ease',
                 opacity: inView ? 1 : 0,
                 transform: inView ? 'translateY(0)' : 'translateY(40px)',
-                transition: `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.15}s`,
-                overflow: 'hidden',
-                '&:hover .project-image': {
-                  transform: 'scale(1.04)',
-                },
-                '&:hover .project-overlay': {
-                  opacity: 1,
-                },
+                '&:hover': { transform: 'translateY(-8px)' },
               }}
             >
-              {/* Image area */}
-              <Box sx={{ position: 'relative', height: 200, overflow: 'hidden' }}>
+              {/* Image */}
+              <Box sx={{ position: 'relative', height: 220 }}>
                 <Box
-                  className="project-image"
                   sx={{
                     width: '100%',
                     height: '100%',
-                    background: PROJECT_GRADIENTS[i],
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    p: 3,
-                    transition: 'transform 0.5s ease',
+                    background:
+                      project.image ||
+                      PROJECT_GRADIENTS[i % PROJECT_GRADIENTS.length],
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                   }}
-                >
-                  <Typography
-                    variant="h6"
-                    sx={{ color: 'white', fontWeight: 700, lineHeight: 1.3, zIndex: 1 }}
-                  >
-                    {PROJECT_LABELS[i].main}
-                    <br />
-                    <Box component="span" sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9em' }}>
-                      {PROJECT_LABELS[i].sub}
-                    </Box>
-                  </Typography>
-                </Box>
+                />
 
-                {/* Hover overlay */}
+                {/* Overlay */}
                 <Box
-                  className="project-overlay"
                   sx={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'rgba(108,99,255,0.85)',
+                    background: 'rgba(0,0,0,.75)',
                     display: 'flex',
-                    alignItems: 'center',
                     justifyContent: 'center',
+                    alignItems: 'center',
                     gap: 2,
                     opacity: 0,
-                    transition: 'opacity 0.3s ease',
+                    transition: 'opacity .3s ease',
+                    '&:hover': { opacity: 1 },
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    size="small"
-                    startIcon={<OpenInNewIcon />}
-                    href={project.liveUrl}
-                    sx={{ background: 'white', color: '#6C63FF', '&:hover': { background: '#f0f0ff' } }}
-                  >
-                    Live Demo
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    startIcon={<GitHubIcon />}
-                    href={project.githubUrl}
-                    sx={{ borderColor: 'white', color: 'white', '&:hover': { background: 'rgba(255,255,255,0.1)' } }}
-                  >
-                    Code
-                  </Button>
+                  {project.liveUrl && (
+                    <Button
+                      variant="contained"
+                      href={project.liveUrl}
+                      target="_blank"
+                      startIcon={<OpenInNewIcon />}
+                    >
+                      Live
+                    </Button>
+                  )}
+
+                  {project.githubUrl && (
+                    <Button
+                      variant="outlined"
+                      href={project.githubUrl}
+                      target="_blank"
+                      startIcon={<GitHubIcon />}
+                    >
+                      Code
+                    </Button>
+                  )}
                 </Box>
               </Box>
 
-              <CardContent sx={{ pb: 1.5 }}>
-                <Typography variant="h6" fontWeight={700} sx={{ mb: 1, fontSize: '1rem' }}>
+              <CardContent>
+
+                <Typography variant="h6" fontWeight={700}>
                   {project.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+
+                <Typography variant="body2" color="text.secondary" sx={{ minHeight: 70 }}>
                   {project.description}
                 </Typography>
               </CardContent>
 
-              <CardActions sx={{ px: 2, pb: 2, gap: 0.8, flexWrap: 'wrap' }}>
-                {project.tags.map((tag) => (
-                  <Chip
-                    key={tag}
-                    label={tag}
-                    size="small"
-                    sx={{
-                      background: isDark ? 'rgba(108,99,255,0.12)' : 'rgba(108,99,255,0.08)',
-                      color: 'primary.light',
-                      fontWeight: 600,
-                      fontSize: '0.72rem',
-                    }}
-                  />
+              <CardActions sx={{ px: 2, pb: 2, flexWrap: 'wrap', gap: 1 }}>
+                {project.technologies.map((tech) => (
+                  <Chip key={tech} label={tech} size="small" />
                 ))}
-                <Box sx={{ ml: 'auto' }}>
-                  <Button
-                    size="small"
-                    endIcon={<OpenInNewIcon sx={{ fontSize: '0.9rem !important' }} />}
-                    href={project.liveUrl}
-                    sx={{ color: 'text.secondary', minWidth: 'auto', p: 0.5, '&:hover': { color: 'primary.main' } }}
-                  />
-                </Box>
               </CardActions>
             </Card>
           ))}
         </Box>
+
+        {/* Empty */}
+        {!filteredProjects.length && (
+          <Typography align="center" color="text.secondary" sx={{ mt: 5 }}>
+            No projects found.
+          </Typography>
+        )}
+
+        {/* Load More */}
+        {visibleProjects < filteredProjects.length && (
+          <Box sx={{ textAlign: 'center', mt: 6 }}>
+            <Button variant="contained" onClick={() => setVisibleProjects((p) => p + 6)}>
+              Load More Projects
+            </Button>
+          </Box>
+        )}
       </Container>
     </Box>
   );

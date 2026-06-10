@@ -1,4 +1,4 @@
-import { NavLink, Skill, Project, SocialLink, Experience } from '@/types';
+import { NavLink, Skill, SocialLink, Experience } from '@/types';
 
 export const NAV_LINKS: NavLink[] = [
   { label: 'Home', href: '#home' },
@@ -18,33 +18,63 @@ export const SKILLS: Skill[] = [
   { name: 'MongoDB', icon: '🍃', color: '#47A248' },
 ];
 
-export const PROJECTS: Project[] = [
+export const PROJECTS = [
   {
-    title: 'Modern Interior Design Studio',
-    description: 'A responsive website for an interior design studio with immersive 3D room showcases.',
-    image: 'interior',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    liveUrl: '#',
-    githubUrl: '#',
+    id: '1',
+    title: 'Xivia Store',
+    description:
+      'Modern full-stack e-commerce platform featuring product categories, shopping cart, product management, deals, promotions, and responsive shopping experience.',
+    category: 'Full Stack',
+    featured: true,
+    image: '',
+    liveUrl: 'https://xivia-store.vercel.app/',
+    githubUrl: '',
+    technologies: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Node.js',
+      'MongoDB',
+      'Tailwind CSS',
+    ],
   },
   {
-    title: 'Task Management App',
-    description: 'A productivity app to manage tasks and projects with real-time collaboration.',
-    image: 'task',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    liveUrl: '#',
-    githubUrl: '#',
+    id: '2',
+    title: 'Xivia Soft',
+    description:
+      'Professional software company website showcasing IT consultancy, UI/UX design, digital solutions, technology advisory, and software development services.',
+    category: 'Frontend',
+    featured: true,
+    image: '',
+    liveUrl: 'https://www.xiviasoft.com/',
+    githubUrl: '',
+    technologies: [
+      'React',
+      'Next.js',
+      'JavaScript',
+      'Tailwind CSS',
+      'Responsive Design',
+    ],
   },
   {
-    title: 'Restaurant Website',
-    description: 'A modern restaurant website with online reservation and menu management.',
-    image: 'restaurant',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    liveUrl: '#',
-    githubUrl: '#',
+    id: '3',
+    title: 'Usman Motors',
+    description:
+      'Vehicle rental and fleet management platform allowing users to browse available cars, view pricing, and request rental services online.',
+    category: 'Full Stack',
+    featured: true,
+    image: '',
+    liveUrl: 'https://usmanmotors.vercel.app/',
+    githubUrl: '',
+    technologies: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Firebase',
+      'Tailwind CSS',
+    ],
   },
 ];
-
 export const SOCIAL_LINKS: SocialLink[] = [
   { platform: 'GitHub', url: '#', icon: 'github' },
   { platform: 'LinkedIn', url: '#', icon: 'linkedin' },

@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.15.0",
+    "firebase": "^12.14.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"
