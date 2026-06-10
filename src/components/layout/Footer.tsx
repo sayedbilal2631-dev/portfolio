@@ -72,15 +72,15 @@ export default function Footer() {
 
           <Box sx={{ display: 'flex', gap: 1 }}>
             {[
-              { icon: <GitHubIcon fontSize="small" />, href: '#' },
-              { icon: <LinkedInIcon fontSize="small" />, href: '#' },
-              { icon: <TwitterIcon fontSize="small" />, href: '#' },
-              { icon: <InstagramIcon fontSize="small" />, href: '#' },
+              { icon: <GitHubIcon fontSize="small" />, href: 'https://github.com/sayedbilal2631-dev' },
+              {
+                icon: <LinkedInIcon fontSize="small" />, href: 'https://www.linkedin.com/in/sayed-bilal-245b81378/' },
             ].map((s, i) => (
               <IconButton
                 key={i}
                 size="small"
                 href={s.href}
+                target="_blank"
                 sx={{
                   color: 'text.secondary',
                   border: '1px solid',
@@ -108,7 +108,7 @@ export default function Footer() {
           }}
         >
           <Typography variant="body2" color="text.secondary">
-            © 2024 Bilal Developer. All rights reserved.
+            © {new Date().getFullYear()} Bilal Developer. All rights reserved.
           </Typography>
 
           <IconButton

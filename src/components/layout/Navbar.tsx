@@ -22,7 +22,6 @@ export default function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const activeSection = useActiveSection();
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
@@ -77,7 +76,7 @@ export default function Navbar() {
             <CodeIcon sx={{ color: 'primary.main', fontSize: 28 }} />
             <Typography
               variant="h6"
-              sx={{ fontFamily: '"Bricolage Grotesque", "Plus Jakarta Sans", sans-serif', fontWeight: 800, letterSpacing: '-0.02em' }}
+              sx={{ fontFamily: '"Bricolage Grotesque", "Plus Jakarta Sans", sans-serif', fontWeight: 800, letterSpacing: '-0.02em', color: 'text.primary' }}
             >
               Bilal{' '}
               <Box component="span" sx={{ color: 'primary.main' }}>DEV</Box>

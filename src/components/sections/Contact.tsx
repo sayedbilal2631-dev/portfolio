@@ -20,12 +20,6 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setSent(true);
-  //   setForm({ name: '', email: '', message: '' });
-  // };
-
   const inputSx = {
     '& .MuiOutlinedInput-root': {
       borderRadius: '14px',
@@ -37,7 +31,7 @@ export default function Contact() {
 
   const handleSubmitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       await emailjs.send(
         'service_173tgga',
@@ -45,7 +39,7 @@ export default function Contact() {
         {
           from_name: form.name,
           from_email: form.email,
-          message: [  form.message, `Email: ${form.email}`].join('\n'),
+          message: [form.message, `Email: ${form.email}`].join('\n'),
         },
         'X1OO5oqKxYQn83y5G'
       );
@@ -56,7 +50,7 @@ export default function Contact() {
         email: '',
         message: '',
       });
-      
+
     } catch (error) {
       console.error(error);
     }
@@ -234,6 +228,9 @@ export default function Contact() {
             {/* Form */}
             <Box component="form" onSubmit={handleSubmitEmail}>
               <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography variant="h5" fontWeight={700} sx={{ mb: 3 }}>Send Me A Message Via Email</Typography>
+                </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth

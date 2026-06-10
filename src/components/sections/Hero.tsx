@@ -1,25 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import {
-  Box, Container, Typography, Button, IconButton, useTheme, Avatar,
-} from '@mui/material';
+import { Box, Container, Typography, Button, IconButton, useTheme, } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import DownloadIcon from '@mui/icons-material/Download';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import React, { useEffect, useState } from 'react';
 
 const ROLES = ['Web Developer', 'React Expert', 'Freelancer'];
-
-const SOCIALS = [
-  { icon: <GitHubIcon fontSize="small" />, label: 'GitHub' },
-  { icon: <LinkedInIcon fontSize="small" />, label: 'LinkedIn' },
-  { icon: <TwitterIcon fontSize="small" />, label: 'Twitter' },
-  { icon: <InstagramIcon fontSize="small" />, label: 'Instagram' },
-];
-
 const STATS = [
   { value: '3+', label: 'Years\nExperience' },
   { value: '50+', label: 'Projects\nCompleted' },
@@ -57,6 +45,30 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [roleIndex, typing]);
 
+  const handleDownloadCV = async () => {
+    const filePath = '/Resume.pdf';
+
+    try {
+      const res = await fetch(filePath, { method: 'HEAD' });
+      if (!res.ok) {
+        console.error('CV file not found on server');
+        alert('CV is not available at the moment. Please try again later.');
+        return;
+      }
+    } catch {
+      alert('Could not reach the server. Check your connection.');
+      return;
+    }
+
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.setAttribute('download', 'Bilal_CV.pdf');
+    link.setAttribute('target', '_blank');
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <Box
       id="home"
@@ -103,7 +115,7 @@ export default function Hero() {
               animation: 'fadeSlideLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) both',
               '@keyframes fadeSlideLeft': {
                 from: { opacity: 0, transform: 'translateX(-48px)' },
-                to:   { opacity: 1, transform: 'translateX(0)' },
+                to: { opacity: 1, transform: 'translateX(0)' },
               },
             }}
           >
@@ -130,7 +142,7 @@ export default function Hero() {
                 variant="body2"
                 sx={{ color: 'primary.main', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.04em' }}
               >
-                Available for Freelance Work
+                Available for Work
               </Typography>
             </Box>
 
@@ -186,7 +198,7 @@ export default function Hero() {
               color="text.secondary"
               sx={{ mb: 4.5, maxWidth: 480, fontSize: '1.05rem', lineHeight: 1.8 }}
             >
-              I build responsive, fast and modern websites with clean code and 
+              I build responsive, fast and modern websites with clean code and
               great user experience. Turning your ideas into beautiful digital products.
             </Typography>
 
@@ -211,6 +223,7 @@ export default function Hero() {
                   color: 'text.primary',
                   '&:hover': { borderColor: 'primary.main', color: 'primary.main', background: 'rgba(108,99,255,0.05)' },
                 }}
+                onClick={handleDownloadCV}
               >
                 Download CV
               </Button>
@@ -244,25 +257,25 @@ export default function Hero() {
             </Box>
 
             {/* Socials */}
-            <Box sx={{ display: 'flex', gap: 1.2 }}>
-              {SOCIALS.map((s) => (
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              {[
+                { icon: <GitHubIcon fontSize="small" />, href: 'https://github.com/sayedbilal2631-dev' },
+                {
+                  icon: <LinkedInIcon fontSize="small" />, href: 'https://www.linkedin.com/in/sayed-bilal-245b81378/'
+                },
+              ].map((s, i) => (
                 <IconButton
-                  key={s.label}
-                  aria-label={s.label}
+                  key={i}
                   size="small"
+                  href={s.href}
+                  target="_blank"
                   sx={{
                     color: 'text.secondary',
                     border: '1px solid',
                     borderColor: 'divider',
-                    borderRadius: '12px',
-                    p: 1.1,
-                    '&:hover': {
-                      color: 'primary.main',
-                      borderColor: 'primary.main',
-                      background: 'rgba(108,99,255,0.08)',
-                      transform: 'translateY(-3px)',
-                    },
-                    transition: 'all 0.25s ease',
+                    borderRadius: '10px',
+                    '&:hover': { color: 'primary.main', borderColor: 'primary.main' },
+                    transition: 'all 0.2s',
                   }}
                 >
                   {s.icon}
@@ -281,7 +294,7 @@ export default function Hero() {
               animation: 'fadeSlideRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both',
               '@keyframes fadeSlideRight': {
                 from: { opacity: 0, transform: 'translateX(48px)' },
-                to:   { opacity: 1, transform: 'translateX(0)' },
+                to: { opacity: 1, transform: 'translateX(0)' },
               },
             }}
           >
